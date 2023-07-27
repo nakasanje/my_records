@@ -15,13 +15,24 @@ import 'common/global_variables.dart';
 import 'doctors.dart';
 import 'firebase_options.dart';
 import 'notification.dart';
+import 'package:my_records/add.dart';
+import 'package:my_records/doctors.dart';
+import 'package:my_records/details.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  NotificationService.configure();
+  
+  // Get the FCM token
+  String? token = await NotificationService.getToken();
+  print('FCM Token: $token');
+
+  // Configure notification handling
+  await NotificationService.configure();
+    NotificationService.configure();
+  
 
   runApp(const MyApp());
 }
@@ -44,43 +55,50 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'My Records',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData) {
-                    return const //HomePage()
-                        Verification();
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text("${snapshot.error}"),
-                    );
-                  }
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: GlobalVariables.primaryColor,
-                    ),
-                  );
-                }
-                return const LoginScreen();
-              }),
-          routes: {
-            '/doctor-dashboard': (context) => const DoctorDashboard(),
-            '/patient-dashboard': (context) => const PatientDashboard(),
-            '/home': (context) => const PatientDashboard(),
-            '/settings': (context) => const Settings2(),
-            '/notifications': (context) => const Notifications(),
-            LoginScreen.routeName: (context) => const LoginScreen(),
-            SignUpScreen.routeName: (context) => const SignUpScreen(),
-          }),
+        debugShowCheckedModeBanner: false,
+        title: 'My Records',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return const Verification();
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text("${snapshot.error}"),
+                );
+              }
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: GlobalVariables.primaryColor,
+                ),
+              );
+            }
+            return DoctorDashboard();
+          },
+        ),
+        routes: {
+          '/doctor-dashboard': (context) =>  DoctorDashboard(),
+          '/patient-dashboard': (context) => const PatientDashboard(),
+          '/home': (context) => const PatientDashboard(),
+          '/settings': (context) => const Settings2(),
+          '/notifications': (context) => const Notifications(),
+          LoginScreen.routeName: (context) => const LoginScreen(),
+          SignUpScreen.routeName: (context) => const SignUpScreen(),
+          '/add': (context) => AddNewRecordScreen(), // Remove the 'const' keyword here
+         // '/details': (context) => PatientDetailsScreen(patientRecord: patientRecord), // Register the route for PatientDetailsScreen
+        },
+   
+        
+          
+      ),
     );
   }
 }
+
