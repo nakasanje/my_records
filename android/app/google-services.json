@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "948370526957",
+    "project_id": "homerex-3a1f9",
+    "storage_bucket": "homerex-3a1f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948370526957:android:720ad38bac9e2d593132e4",
+        "android_client_info": {
+          "package_name": "com.example.homerex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948370526957-6a0t8c9kikkotgio3v9plu0c8gdrr5hf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbkFhnKKyPYlKpL2E40qCV0QiqO7Xx424"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948370526957-6a0t8c9kikkotgio3v9plu0c8gdrr5hf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "948370526957-089gthf57g9427duincun8p9b4v4u5et.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.homerex.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
